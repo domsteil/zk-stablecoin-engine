@@ -1,0 +1,30 @@
+{
+  "name": "zk-stablecoin-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domsteil/zk-stablecoin-engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/domsteil/zk-stablecoin-engine/issues"
+  },
+  "homepage": "https://github.com/domsteil/zk-stablecoin-engine#readme",
+  "dependencies": {
+    "bn.js": "^5.2.1",
+    "cors": "^2.8.5",
+    "ethers": "^5.7.2",
+    "next": "^13.0.2",
+    "nightfall-sdk": "^1.0.0",
+    "node-fetch": "^3.2.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
