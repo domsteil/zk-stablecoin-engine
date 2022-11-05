@@ -2,9 +2,11 @@ import '../styles/globals.css'
 
 import { currentUser } from '@clerk/nextjs/app-beta';
 
-console.log(currentUser);
+import { auth } from '@clerk/nextjs/app-beta';
 
 const Home = (props) => {
+
+  const { userId } = auth();
 
   return (
 
