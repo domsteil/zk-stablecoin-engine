@@ -1,6 +1,6 @@
 import Cors from 'cors'
-import initMiddleware from '../../../lib/init-middleware'
-import config from '../../../../lib/nightfallConfig'
+import initMiddleware from '../../../../lib/init-middleware'
+import config from '../../../../lib/nightfall-config'
 import { UserFactory } from 'nightfall-sdk';
 
 // Initialize the cors middleware

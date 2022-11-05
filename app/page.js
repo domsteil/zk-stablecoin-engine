@@ -14,7 +14,7 @@ const Home = (props) => {
           <div className="flex-1 min-w-0 bg-white xl:flex">
             <div className="border-b border-gray-200 xl:border-b-0 xl:flex-shrink-0 xl:w-64 xl:border-r xl:border-gray-200 bg-white">
               <div className="h-full pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0">
-                <h2 className="text-lg text-slate-900 font-semibold">Welcome, to the Page</h2>
+                <h2 className="text-lg text-slate-900 font-semibold">zk-stablecoin-engine</h2>
                 <div className="h-full relative" style={{ minHeight: '12rem' }}>
                   <div className="rounded-lg" />
                   <nav className="mt-5 flex-1">
