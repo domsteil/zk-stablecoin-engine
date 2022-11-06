@@ -64,7 +64,7 @@ export default () => {
 
     const handleOnSubmit = async e => {
         setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
-        const res = await fetch('/api/polygon/send', {
+        const res = await fetch('/api/polygon/nightfall/transfer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
