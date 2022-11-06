@@ -1,23 +1,19 @@
 import { ethers, utils } from 'ethers';
 import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
-import config from '../../../../lib/nightfall-config'
+
 import BN from 'bn.js';
 import { UserFactory } from 'nightfall-sdk';
 
 
-const clientApiUrl = config.clientApiUrl;
-const nightfallMnemonic = config.nightfallMnemonic;
+const clientApiUrl = process.env.APP_CLIENT_API_URL;
+const nightfallMnemonic = process.env.APP_NIGHTFALL_MNEMONIC;
 
 export default async function (req, res) {
-
-async function createUserFirstTime() {
 
     try {
 
       const nightfallUser = await UserFactory.create({clientApiUrl});
-      
-      // move to clerk secrets or database with posgres
       
       if (nightfallUser) {
         localStorage.setItem("userAddress", nightfallUser.ethAddress);
@@ -39,5 +35,4 @@ async function createUserFirstTime() {
     } catch (error) {
       console.log(error);
     }
-  }
 }

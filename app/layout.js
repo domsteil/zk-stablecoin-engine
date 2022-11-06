@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-head-element */
+/* eslint-disable react/display-name */
+
 import React from "react"
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 

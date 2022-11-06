@@ -1,6 +1,6 @@
 import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
-import config from '../../../../lib/nightfall-config'
+
 import { UserFactory } from 'nightfall-sdk';
 
 // Initialize the cors middleware
@@ -13,8 +13,8 @@ const cors = initMiddleware(
     })
 )
 
-const clientApiUrl = config.clientApiUrl;
-const nightfallMnemonic = config.nightfallMnemonic;
+const clientApiUrl = process.env.APP_CLIENT_API_URL;
+const nightfallMnemonic = process.env.APP_NIGHTFALL_MNEMONIC;
 
 export default async function (req, res) {
 

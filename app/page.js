@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 'use client';
 
 import '../styles/globals.css'
@@ -12,6 +14,7 @@ const stats = [
   { name: 'Savings', stat: '$15,897' },
   { name: 'Debt', stat: '$897' }
 ];
+
 
 const Home = (props) => {
 
@@ -31,7 +34,6 @@ const Home = (props) => {
                 <h2 className="text-lg text-purple-800 font-semibold">zk-stablecoin-engine</h2>
                 <div className="h-full relative" style={{ minHeight: '12rem' }}>
                   <div className="rounded-lg" />
-                  
                   <SignUpButton mode="modal">
                     <div class="w-60 mt-8 mb-8 sm:mt-4 sm:mb-4">
                       <button className="block w-full rounded-md border border-transparent px-5 py-3 bg-purple-700 text-base font-medium text-white shadow hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:px-10">
@@ -98,5 +100,8 @@ const Home = (props) => {
     </div>
   )
 }
+
+Home.displayName = 'Home';
+
 
 export default Home;
