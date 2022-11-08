@@ -13,12 +13,8 @@ export default () => {
 
     const [open, setOpen] = useState(false)
 
-    const activityItems = [
-        { id: 1, amount: 1, project: 'USDC', commit: '2d89f0c8', environment: 'polygon-nightfall', time: '1h' },
-        // More items...
-    ]
-
     const [inputs, setInputs] = useState({
+        user: '',
         email: '',
         message: '',
         description: '',
@@ -37,6 +33,7 @@ export default () => {
                 info: { error: false, msg: msg }
             })
             setInputs({
+                user: '',
                 email: '',
                 message: '',
                 description: '',

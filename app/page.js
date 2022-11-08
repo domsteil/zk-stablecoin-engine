@@ -9,13 +9,6 @@ import { currentUser } from '@clerk/nextjs/app-beta';
 import { SignUpButton } from "@clerk/nextjs";
 import Pay from "components/Pay"
 
-const stats = [
-  { name: 'Account Balance', stat: '$8,000' },
-  { name: 'Savings', stat: '$15,897' },
-  { name: 'Debt', stat: '$897' }
-];
-
-
 const Home = (props) => {
 
   return (
@@ -62,14 +55,6 @@ const Home = (props) => {
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                         <div>
-                          <dl className="mt-2 mb-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
-                            {stats.map((item) => (
-                              <div key={item.name} className="px-4 py-5 bg-white rounded-lg overflow-hidden sm:p-6">
-                                <dt className="tracking-tight text-base font-medium text-gray-500 truncate">{item.name}</dt>
-                                <dd className="mt-1 text-3xl font-semibold text-gray-900">{item.stat}</dd>
-                              </div>
-                            ))}
-                          </dl>
                         </div>
 
                         <h1 className="text-lg leading-6 font-medium text-gray-900">

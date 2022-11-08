@@ -1,6 +1,6 @@
 import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
-
+import { withAuth } from '@clerk/nextjs/api';
 import { UserFactory } from 'nightfall-sdk';
 
 // Initialize the cors middleware
@@ -16,38 +16,44 @@ const cors = initMiddleware(
 const clientApiUrl = process.env.APP_CLIENT_API_URL;
 const nightfallMnemonic = process.env.APP_NIGHTFALL_MNEMONIC;
 
-export default async function (req, res) {
+export default withAuth(async (req, res) => {
 
-    try {
+    if (req.auth.sessionId) {
 
-      const nightfallUser = await UserFactory.create({ clientApiUrl, nightfallMnemonic });
-  
-      // Check the balances of the current user
-      const balance = await nightfallUser.checkNightfallBalances();
-  
-      if (Object.keys(balance).length) {
+        try {
 
-        const balanceWei = Object.values(balance)[0][0].balance;
+            const nightfallUser = await UserFactory.create({ clientApiUrl, nightfallMnemonic });
 
-        const receiver_balance = balanceWei;
+            // Check the balances of the current user
+            const balance = await nightfallUser.checkNightfallBalances();
 
-        var number = receiver_balance;
+            if (Object.keys(balance).length) {
 
-        var formatted_number = number / 1000000;
+                const balanceWei = Object.values(balance)[0][0].balance;
 
-        var float_number = formatted_number.toFixed(2);
+                const receiver_balance = balanceWei;
 
-        return res.status(200).json({ usdc_balance: float_number })
-      }
+                var number = receiver_balance;
 
+                var formatted_number = number / 1000000;
+
+                var float_number = formatted_number.toFixed(2);
+
+                return res.status(200).json({ usdc_balance: float_number })
+            }
+
+        }
+
+        catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                "error_code": "eth_error",
+                "error_message": error.toString ? error.toString() : error
+            });
+        };
+
+    } else {
+        res.status(401).json({ id: null });
     }
 
-    catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            "error_code": "eth_error",
-            "error_message": error.toString ? error.toString() : error
-        });
-    };
-
-}
+});

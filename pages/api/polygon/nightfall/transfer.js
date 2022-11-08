@@ -3,7 +3,7 @@ import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
 import BN from 'bn.js';
 import { UserFactory } from 'nightfall-sdk';
-
+import { withAuth } from '@clerk/nextjs/api';
 
 // Initialize the cors middleware
 const cors = initMiddleware(
@@ -17,46 +17,57 @@ const cors = initMiddleware(
 
 const clientApiUrl = process.env.APP_CLIENT_API_URL;
 const nightfallMnemonic = process.env.APP_NIGHTFALL_MNEMONIC;
+const erc20ContractAddress = process.env.ERC20_CONTRACT_ADDRESS;
 
-export default async function (req, res) {
+export default withAuth(async (req, res) => {
+
+
+  const erc20value = req.body.amount;
 
   await cors();
 
-  try {
+  if (req.auth.sessionId) {
 
-    // Create a user that will transfer funds
-    const nightfallUserSender = await UserFactory.create({
-      clientApiUrl,
-      nightfallMnemonic,
-    });
+    try {
 
-    // Create a user that will recieve funds
-    const nightfallUserRecepient = await UserFactory.create({
-      clientApiUrl,
-    });
+      // Create a user that will transfer funds
+      const nightfallUserSender = await UserFactory.create({
+        clientApiUrl,
+        nightfallMnemonic,
+      });
 
-    // Recepient Address
-    const recepientAddress = nightfallUserRecepient.getNightfallAddress();
+      // Create a user that will receive funds
+      const nightfallUserRecepient = await UserFactory.create({
+        clientApiUrl
+      });
 
-    // Make a transfer to the Nightfall address of the recipient
-    const txReceipts = await nightfallUserSender.makeTransfer({
-      tokenContractAddress: erc20ContractAddress,
-      value: erc20value,
-      recipientNightfallAddress: recepientAddress,
-      isOffChain: false,
-    });
+      // Recepient Address
+      const recipientAddress = nightfallUserRecepient.getNightfallAddress();
 
-    console.log(txReceipts);
+      // Make a transfer to the Nightfall address of the recipient
+      const txReceipts = await nightfallUserSender.makeTransfer({
+        tokenContractAddress: erc20ContractAddress,
+        value: erc20value,
+        recipientNightfallAddress: recipientAddress,
+        isOffChain: false,
+      });
 
-    return res.status(200).json(`Sent ${ethers.utils.formatUnits(value, 6)} USDC to ${recepientAddress}`)
+      console.log(txReceipts);
 
+      return res.status(200).json(`Sent ${ethers.utils.formatUnits(value, 6)} USDC to ${recipientAddress}`)
+
+    }
+
+    catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        "error_code": "eth_error",
+        "error_message": error.toString ? error.toString() : error
+      });
+    };
+
+  } else {
+    res.status(401).json({ id: null });
   }
 
-  catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      "error_code": "eth_error",
-      "error_message": error.toString ? error.toString() : error
-    });
-  };
-};
+});

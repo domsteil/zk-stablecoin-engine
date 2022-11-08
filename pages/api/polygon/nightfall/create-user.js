@@ -22,6 +22,8 @@ export default async function (req, res) {
 
     await cors();
 
+    if (req.auth.sessionId) {
+
     try {
 
         const nightfallUser = await UserFactory.create({ clientApiUrl, nightfallMnemonic });
@@ -43,4 +45,9 @@ export default async function (req, res) {
             "error_message": error.toString ? error.toString() : error
         });
     };
-};
+
+} else {
+    res.status(401).json({ id: null });
+  }
+
+}

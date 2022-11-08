@@ -2,7 +2,7 @@
 import { ethers, utils } from 'ethers';
 import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
-
+import { withAuth } from '@clerk/nextjs/api';
 import BN from 'bn.js';
 import { UserFactory } from 'nightfall-sdk';
 
@@ -18,10 +18,16 @@ const cors = initMiddleware(
 
 const clientApiUrl = process.env.APP_CLIENT_API_URL;
 const nightfallMnemonic = process.env.APP_NIGHTFALL_MNEMONIC;
+const erc20ContractAddress = process.env.ERC20_CONTRACT_ADDRESS;
 
-export default async function (req, res) {
+
+export default withAuth(async (req, res) => {
+
+    const erc20value = req.body.amount;
 
     await cors()
+
+    if (req.auth.sessionId) {
 
     try {
         // Create a user to make a withdrawal
@@ -48,4 +54,10 @@ export default async function (req, res) {
       "error_message": error.toString ? error.toString() : error
     });
   };
-};
+
+
+} else {
+  res.status(401).json({ id: null });
+}
+
+});
