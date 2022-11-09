@@ -192,23 +192,6 @@ export default () => {
                     Withdraw
                 </button>
                 <div>
-                    <ul role="list" className="divide-y divide-gray-200">
-                        {activityItems.map((activityItem) => (
-                            <li key={activityItem.id} className="py-4">
-                                <div className="flex space-x-3">
-                                    <div className="flex-1 space-y-1">
-                                        <div className="flex items-center justify-between">
-                                            <h3 className="text-base font-medium"></h3>
-                                            <p className="text-base text-gray-500">{activityItem.time}</p>
-                                        </div>
-                                        <p className="text-base text-gray-500">
-                                            Sent {activityItem.project} ({activityItem.commit} ) on {activityItem.environment}
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             </form>
         </main >

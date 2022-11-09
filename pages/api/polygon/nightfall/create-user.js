@@ -1,7 +1,7 @@
 import { ethers, utils } from 'ethers';
 import Cors from 'cors'
 import initMiddleware from '../../../../lib/init-middleware'
-
+import { withAuth } from '@clerk/nextjs/api';
 import BN from 'bn.js';
 import { UserFactory } from 'nightfall-sdk';
 
